@@ -30,5 +30,17 @@ module.exports = {
     project: './tsconfig.json',
   },
   plugins: ['@typescript-eslint', 'react'],
-  rules: { 'react/react-in-jsx-scope': 'off', 'react/jsx-uses-react': 'off' },
+  rules: {
+    'react/react-in-jsx-scope': 'off',
+    'react/jsx-uses-react': 'off',
+    'max-lines-per-function': ['error', 40],
+    'no-magic-numbers': [
+      'error',
+      {
+        ignore: [0, 1],
+        ignoreArrayIndexes: true,
+        enforceConst: true,
+      },
+    ],
+  },
 };

@@ -1,0 +1,11 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.car-name {
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: 1.5rem;
+}

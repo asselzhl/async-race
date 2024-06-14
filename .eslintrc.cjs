@@ -42,5 +42,9 @@ module.exports = {
         enforceConst: true,
       },
     ],
+    'no-param-reassign': [
+      'error',
+      { props: true, ignorePropertyModificationsFor: ['state'] },
+    ],
   },
 };

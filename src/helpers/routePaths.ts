@@ -1,4 +1,4 @@
-type RoutePaths = '/' | '/garage' | '/winners';
+type RoutePaths = '/' | '/winners';
 
 interface RoutePathsKeys {
   index: RoutePaths;

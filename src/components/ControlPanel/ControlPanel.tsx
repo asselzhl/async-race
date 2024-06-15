@@ -2,16 +2,19 @@ import { Button } from '@mui/material';
 import CarForm from '../CarForm/CarForm';
 
 import styles from './ControlPanel.module.css';
-import generateRandomCars from '../../helpers/generateRandomCars';
-import { setGeneratedCars } from '../../store/car/carSlice';
+import generateRandomCar from '../../helpers/generateRandomCar';
 import { useAppDispatch } from '../../store/store';
+import { createCar } from '../../store/car/carThunk';
 
 function ControlPanel() {
   const dispatch = useAppDispatch();
-  const handleGenerateButtonClick = () => {
-    const generatedCars = generateRandomCars();
 
-    dispatch(setGeneratedCars(generatedCars));
+  const handleGenerateButtonClick = () => {
+    const totalRandomCars = 100;
+    for (let i = 0; i < totalRandomCars; i += 1) {
+      const randomCar = generateRandomCar();
+      dispatch(createCar(randomCar));
+    }
   };
 
   return (

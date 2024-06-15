@@ -5,6 +5,11 @@ export const agent = axios.create({
   baseURL: 'http://localhost:3000',
 });
 
+interface CarFormData {
+  name: string;
+  color: string;
+}
+
 export const getCars = createAsyncThunk('getCars', async (_, thunkApi) => {
   try {
     const data = await agent('/garage');
@@ -16,10 +21,23 @@ export const getCars = createAsyncThunk('getCars', async (_, thunkApi) => {
 
 export const createCar = createAsyncThunk(
   'createCar',
-  async (carData, thunkApi) => {
+  async (carFormData: CarFormData, thunkApi) => {
     try {
-      const data = await agent.post('/garage', carData);
+      const data = await agent.post('/garage', carFormData);
       return data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error);
+    }
+  }
+);
+
+export const deleteCar = createAsyncThunk(
+  'deleteCar',
+  async (id: string, thunkApi) => {
+    const endpoint = `/garage/${id}`;
+    try {
+      const data = await agent.delete(endpoint);
+      return { data, id };
     } catch (error) {
       return thunkApi.rejectWithValue(error);
     }

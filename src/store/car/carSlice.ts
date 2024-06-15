@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { StateStatus, stateStatus } from '../constants';
-import { getCars } from './carThunk';
+import { createCar, deleteCar, getCars } from './carThunk';
 
 interface Car {
   name: string;
@@ -30,11 +30,20 @@ export const carSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(getCars.fulfilled, (state, action) => {
-      state.status = stateStatus.succeeded;
-      state.list = action.payload.data;
-      return state;
-    });
+    builder
+      .addCase(getCars.fulfilled, (state, action) => {
+        state.status = stateStatus.succeeded;
+        state.list = action.payload.data;
+        return state;
+      })
+      .addCase(createCar.fulfilled, (state, action) => {
+        state.list.push(action.payload.data);
+        return state;
+      })
+      .addCase(deleteCar.fulfilled, (state, action) => {
+        state.list = state.list.filter((car) => car.id !== action.payload.id);
+        return state;
+      });
   },
 });
 

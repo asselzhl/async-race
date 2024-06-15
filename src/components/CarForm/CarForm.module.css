@@ -7,3 +7,7 @@
 .text-field {
   width: 8rem;
 }
+
+.error {
+  color: red;
+}

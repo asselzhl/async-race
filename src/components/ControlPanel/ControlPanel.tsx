@@ -36,7 +36,7 @@ function ControlPanel() {
         size="small"
         onClick={handleGenerateButtonClick}
       >
-        Generate cars
+        Generate 100 cars
       </Button>
     </div>
   );

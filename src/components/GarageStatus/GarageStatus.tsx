@@ -1,18 +1,38 @@
 import { Pagination } from '@mui/material';
 
-import { useSelector } from 'react-redux';
+import { ChangeEvent } from 'react';
+import { useAppDispatch } from '../../store/store';
+import { setCurrentPage } from '../../store/pages/pagesSlice';
+
 import styles from './GarageStatus.module.css';
-import { getCarsList } from '../../store/selectors';
 
-function GarageStatus() {
-  const carsList = useSelector(getCarsList);
+interface GarageStatusProps {
+  totalCars: number;
+  totalPages: number;
+  currentPage: number;
+}
 
+function GarageStatus({
+  totalCars,
+  totalPages,
+  currentPage,
+}: GarageStatusProps) {
+  const dispatch = useAppDispatch();
+
+  const handlePageChange = (_: ChangeEvent<unknown>, value: number) => {
+    dispatch(setCurrentPage(value));
+  };
   return (
     <div className={styles.wrapper}>
       <p>
-        Garage <span>({carsList.length})</span>
+        Garage <span>({totalCars})</span>
       </p>
-      <Pagination count={10} shape="rounded" />
+      <Pagination
+        count={totalPages}
+        page={currentPage}
+        onChange={handlePageChange}
+        shape="rounded"
+      />
     </div>
   );
 }

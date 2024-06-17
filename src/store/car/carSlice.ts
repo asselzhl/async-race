@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { StateStatus, stateStatus } from '../constants';
-import { createCar, deleteCar, getCars } from './carThunk';
+import { createCar, deleteCar, getCars, updateCar } from './carThunk';
 
 interface Car {
   name: string;
   color: string;
-  id: string;
+  id: number;
 }
 
 interface CarsState {
@@ -38,6 +38,13 @@ export const carSlice = createSlice({
       })
       .addCase(createCar.fulfilled, (state, action) => {
         state.list.push(action.payload.data);
+        return state;
+      })
+      .addCase(updateCar.fulfilled, (state, action) => {
+        const updatedCourse = action.payload.data;
+        state.list = state.list.map((car) =>
+          car.id === updatedCourse.id ? updatedCourse : car
+        );
         return state;
       })
       .addCase(deleteCar.fulfilled, (state, action) => {

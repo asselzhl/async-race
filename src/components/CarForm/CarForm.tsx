@@ -1,28 +1,43 @@
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Button } from '@mui/material';
+import { useSelector } from 'react-redux';
 import { useAppDispatch } from '../../store/store';
-import { createCar } from '../../store/car/carThunk';
+import { createCar, updateCar } from '../../store/car/carThunk';
 
 import styles from './CarForm.module.css';
 import ColorPickerWithError from './components/ColorPickerWithError';
 import TextFieldWithError from './components/TextFieldWithError';
+import {
+  getNewCarFormData,
+  getUpdatedCarFormData,
+} from '../../store/selectors';
+import {
+  setNewCarFormData,
+  setUpdatedCarFormData,
+} from '../../store/carForm/carFormSlice';
 
 interface CarFormProps {
-  type: string;
+  type: 'create' | 'update';
 }
 
 function CarForm({ type }: CarFormProps) {
   const dispatch = useAppDispatch();
   const buttonText = type === 'create' ? 'Create' : 'Update';
 
+  const onChangeAction =
+    type === 'create' ? setNewCarFormData : setUpdatedCarFormData;
+  const onSubmitAction = type === 'create' ? createCar : updateCar;
+  const selector =
+    type === 'create' ? getNewCarFormData : getUpdatedCarFormData;
+
+  const carFormData = useSelector(selector);
+
   const formik = useFormik({
-    initialValues: {
-      name: '',
-      color: '#000000',
-    },
+    initialValues: carFormData,
+    enableReinitialize: true,
     onSubmit: (values, { resetForm }) => {
-      dispatch(createCar(values));
+      dispatch(onSubmitAction(values));
 
       resetForm();
     },
@@ -34,8 +49,8 @@ function CarForm({ type }: CarFormProps) {
 
   return (
     <form action="" className={styles.form} onSubmit={formik.handleSubmit}>
-      <TextFieldWithError formik={formik} />
-      <ColorPickerWithError formik={formik} />
+      <TextFieldWithError formik={formik} onChangeAction={onChangeAction} />
+      <ColorPickerWithError formik={formik} onChangeAction={onChangeAction} />
 
       <Button variant="outlined" type="submit" size="small">
         {buttonText}

@@ -1,36 +1,24 @@
-import { Button, ButtonGroup } from '@mui/material';
 import { FaCarSide } from 'react-icons/fa6';
 
 import styles from './Car.module.css';
-import { useAppDispatch } from '../../store/store';
-import { deleteCar } from '../../store/car/carThunk';
+
+import ManagementButtons from './components/ManagementButtons';
+import EngineControlButtons from './components/EngineControlButtons';
 
 interface CarsItem {
   name: string;
   color: string;
-  id: string;
+  id: number;
 }
 interface CarProps {
   car: CarsItem;
 }
 
 function Car({ car }: CarProps) {
-  const dispatch = useAppDispatch();
-
-  const handleDeleteButtonClick = () => {
-    dispatch(deleteCar(car.id));
-  };
   return (
     <div className={styles.wrapper}>
-      <ButtonGroup variant="outlined" size="small" orientation="vertical">
-        <Button>Edit</Button>
-        <Button onClick={handleDeleteButtonClick}>Remove</Button>
-      </ButtonGroup>
-
-      <ButtonGroup variant="contained" size="small" orientation="vertical">
-        <Button>A</Button>
-        <Button>B</Button>
-      </ButtonGroup>
+      <ManagementButtons carID={car.id} />
+      <EngineControlButtons />
 
       <div>
         <FaCarSide size={70} color={car.color} />

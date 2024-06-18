@@ -2,14 +2,15 @@ import { Button, ButtonGroup } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from '../../../store/store';
 import { deleteCar } from '../../../store/car/carThunk';
-import { getCarsList } from '../../../store/selectors';
+
 import { setUpdatedCarFormData } from '../../../store/carForm/carFormSlice';
+import { getCarsList } from '../../../store/car/selectors';
 
 interface ManagementButtonsProps {
   carID: number;
 }
 
-function ManagementButtons({ carID }: ManagementButtonsProps) {
+export function ManagementButtons({ carID }: ManagementButtonsProps) {
   const dispatch = useAppDispatch();
 
   const carsList = useSelector(getCarsList);
@@ -29,5 +30,3 @@ function ManagementButtons({ carID }: ManagementButtonsProps) {
     </ButtonGroup>
   );
 }
-
-export default ManagementButtons;

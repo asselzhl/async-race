@@ -1,13 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 interface CarData {
-  name: string;
-  color: string;
+  name?: string;
+  color?: string;
 }
 interface CarFormState {
   newCar: CarData;
   updatedCar: CarData;
 }
+
+export type CarFormAction = (data: CarData) => {
+  type: string;
+  payload: CarData;
+};
 
 const initialState: CarFormState = {
   newCar: {

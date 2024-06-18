@@ -1,17 +1,15 @@
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { useAppDispatch } from '../../store/store';
-import Car from '../Car/Car';
-import {
-  getCarsList,
-  getCarsStateStatus,
-  getCurrentPage,
-} from '../../store/selectors';
+import { Car } from '../Car/Car';
+
 import { stateStatus } from '../../store/constants';
 import { getCars } from '../../store/car/carThunk';
-import GarageStatus from '../GarageStatus/GarageStatus';
+import { GarageStatus } from '../GarageStatus/GarageStatus';
+import { getCarsList, getCarsStateStatus } from '../../store/car/selectors';
+import { getCurrentPage } from '../../store/pages/selectors';
 
-function Track() {
+export function Track() {
   const dispatch = useAppDispatch();
 
   const carsStatus = useSelector(getCarsStateStatus);
@@ -48,4 +46,3 @@ function Track() {
     </>
   );
 }
-export default Track;

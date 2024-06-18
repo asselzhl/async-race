@@ -12,7 +12,7 @@ interface GarageStatusProps {
   currentPage: number;
 }
 
-function GarageStatus({
+export function GarageStatus({
   totalCars,
   totalPages,
   currentPage,
@@ -36,4 +36,3 @@ function GarageStatus({
     </div>
   );
 }
-export default GarageStatus;

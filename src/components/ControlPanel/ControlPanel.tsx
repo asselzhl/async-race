@@ -1,12 +1,12 @@
 import { Button } from '@mui/material';
-import CarForm from '../CarForm/CarForm';
+import { CarForm } from '../CarForm/CarForm';
 
 import styles from './ControlPanel.module.css';
-import generateRandomCar from '../../helpers/generateRandomCar';
+import { generateRandomCar } from '../../helpers/generateRandomCar';
 import { useAppDispatch } from '../../store/store';
 import { createCar } from '../../store/car/carThunk';
 
-function ControlPanel() {
+export function ControlPanel() {
   const dispatch = useAppDispatch();
 
   const handleGenerateButtonClick = () => {
@@ -41,5 +41,3 @@ function ControlPanel() {
     </div>
   );
 }
-
-export default ControlPanel;

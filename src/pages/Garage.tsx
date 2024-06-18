@@ -1,7 +1,7 @@
-import ControlPanel from '../components/ControlPanel/ControlPanel';
-import Track from '../components/Track/Track';
+import { ControlPanel } from '../components/ControlPanel/ControlPanel';
+import { Track } from '../components/Track/Track';
 
-function Garage() {
+export function Garage() {
   return (
     <>
       <ControlPanel />
@@ -9,5 +9,3 @@ function Garage() {
     </>
   );
 }
-
-export default Garage;

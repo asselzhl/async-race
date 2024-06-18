@@ -1,5 +1,3 @@
-function Winners() {
+export function Winners() {
   return <div>Winners</div>;
 }
-
-export default Winners;

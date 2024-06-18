@@ -1,13 +1,4 @@
-type RoutePaths = '/' | '/winners';
-
-interface RoutePathsKeys {
-  index: RoutePaths;
-  winners: RoutePaths;
-}
-
-const routePaths: RoutePathsKeys = {
+export const routePaths = {
   index: '/',
   winners: '/winners',
-};
-
-export default routePaths;
+} as const;

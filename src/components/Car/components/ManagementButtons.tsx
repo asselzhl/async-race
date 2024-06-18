@@ -1,27 +1,27 @@
 import { Button, ButtonGroup } from '@mui/material';
-import { useSelector } from 'react-redux';
 import { useAppDispatch } from '../../../store/store';
 import { deleteCar } from '../../../store/car/carThunk';
 
 import { setUpdatedCarFormData } from '../../../store/carForm/carFormSlice';
-import { getCarsList } from '../../../store/car/selectors';
 
+interface CarsItem {
+  name: string;
+  color: string;
+  id: number;
+}
 interface ManagementButtonsProps {
-  carID: number;
+  car: CarsItem;
 }
 
-export function ManagementButtons({ carID }: ManagementButtonsProps) {
+export function ManagementButtons({ car }: ManagementButtonsProps) {
   const dispatch = useAppDispatch();
 
-  const carsList = useSelector(getCarsList);
-
   const handleSelectButtonClick = () => {
-    const selectedCar = carsList.find((car) => car.id === carID);
-    dispatch(setUpdatedCarFormData(selectedCar));
+    dispatch(setUpdatedCarFormData(car));
   };
 
   const handleDeleteButtonClick = () => {
-    dispatch(deleteCar(carID));
+    dispatch(deleteCar(car.id));
   };
   return (
     <ButtonGroup variant="outlined" size="small" orientation="vertical">

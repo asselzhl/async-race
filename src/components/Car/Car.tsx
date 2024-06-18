@@ -28,7 +28,7 @@ export function Car({ car }: CarProps) {
 
   return (
     <div className={styles.wrapper}>
-      <ManagementButtons carID={car.id} />
+      <ManagementButtons car={car} />
       <EngineControlButtons
         handleStartEngine={handleStartEngine}
         handleStopEngine={handleStopEngine}

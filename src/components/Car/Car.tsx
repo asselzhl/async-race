@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { FaCarSide } from 'react-icons/fa6';
 
 import styles from './Car.module.css';
@@ -6,6 +8,7 @@ import { ManagementButtons } from './components/ManagementButtons';
 import { EngineControlButtons } from './components/EngineControlButtons';
 import { useEngineControl } from './helpers/useEngineControl';
 import { getCarAnimationStyle } from './helpers/getCarAnimationStyle';
+import { getIsRacing } from '../../store/race/selectors';
 
 interface CarsItem {
   name: string;
@@ -17,6 +20,7 @@ interface CarProps {
 }
 
 export function Car({ car }: CarProps) {
+  const isRacing = useSelector(getIsRacing);
   const {
     animationDuration,
     isAnimating,
@@ -25,6 +29,15 @@ export function Car({ car }: CarProps) {
   } = useEngineControl(car);
 
   const carAnimation = getCarAnimationStyle(isAnimating, animationDuration);
+
+  useEffect(() => {
+    if (isRacing) {
+      handleStartEngine();
+    }
+    if (!isRacing) {
+      handleStopEngine();
+    }
+  });
 
   return (
     <div className={styles.wrapper}>
@@ -38,7 +51,7 @@ export function Car({ car }: CarProps) {
       <FaCarSide
         size={70}
         color={car.color}
-        style={isAnimating ? carAnimation : {}}
+        style={isAnimating ? carAnimation : { transform: 'translateX(0)' }}
       />
 
       <h5 className={styles['car-name']}>{car.name}</h5>

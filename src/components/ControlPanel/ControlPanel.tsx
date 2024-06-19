@@ -5,6 +5,7 @@ import styles from './ControlPanel.module.css';
 import { generateRandomCar } from '../../helpers/generateRandomCar';
 import { useAppDispatch } from '../../store/store';
 import { createCar } from '../../store/car/carThunk';
+import { RaceControls } from './components/RaceControls';
 
 export function ControlPanel() {
   const dispatch = useAppDispatch();
@@ -19,14 +20,7 @@ export function ControlPanel() {
 
   return (
     <div className={styles.wrapper}>
-      <div className={styles['race-controls']}>
-        <Button variant="outlined" size="small">
-          Race
-        </Button>
-        <Button variant="outlined" size="small">
-          Reset
-        </Button>
-      </div>
+      <RaceControls />
 
       <CarForm type="create" />
       <CarForm type="update" />

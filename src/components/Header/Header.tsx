@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Button } from '@mui/material';
-import { routePaths } from '../../helpers/routePaths';
+import { routePaths } from '../../pages/helpers/routePaths';
 
 import styles from './Header.module.css';
 

@@ -22,7 +22,7 @@ interface CarFormProps {
   type: 'create' | 'update';
 }
 
-const dataByType = {
+const formConfigByType = {
   create: {
     buttonText: 'Create',
     onSubmitAction: createCar,
@@ -41,15 +41,15 @@ const dataByType = {
 export function CarForm({ type }: CarFormProps) {
   const dispatch = useAppDispatch();
 
-  const config = dataByType[type];
+  const currentFormConfig = formConfigByType[type];
 
-  const carFormData = useSelector(config.selector);
+  const carFormData = useSelector(currentFormConfig.selector);
 
   const formik = useFormik({
     initialValues: carFormData,
     enableReinitialize: true,
     onSubmit: (values, { resetForm }) => {
-      dispatch(config.onSubmitAction(values));
+      dispatch(currentFormConfig.onSubmitAction(values));
 
       resetForm();
     },
@@ -63,15 +63,15 @@ export function CarForm({ type }: CarFormProps) {
     <form action="" className={styles.form} onSubmit={formik.handleSubmit}>
       <TextFieldWithError
         formik={formik}
-        onChangeAction={config.onChangeAction}
+        onChangeAction={currentFormConfig.onChangeAction}
       />
       <ColorPickerWithError
         formik={formik}
-        onChangeAction={config.onChangeAction}
+        onChangeAction={currentFormConfig.onChangeAction}
       />
 
       <Button variant="outlined" type="submit" size="small">
-        {config.buttonText}
+        {currentFormConfig.buttonText}
       </Button>
     </form>
   );

@@ -1,31 +1,34 @@
-import { Pagination } from '@mui/material';
-
 import { ChangeEvent } from 'react';
+import { Pagination } from '@mui/material';
 import { useAppDispatch } from '../../store/store';
-import { setGarageCurrentPage } from '../../store/pages/pagesSlice';
 
-import styles from './GarageStatus.module.css';
+import styles from './PageStatus.module.css';
 
-interface GarageStatusProps {
-  totalCars: number;
+// TODO: action type
+interface PageStatusProps {
+  totalItems: number;
   totalPages: number;
   currentPage: number;
+  action;
+  pageTitle: string;
 }
 
-export function GarageStatus({
-  totalCars,
+export function PageStatus({
+  totalItems,
   totalPages,
   currentPage,
-}: GarageStatusProps) {
+  action,
+  pageTitle,
+}: PageStatusProps) {
   const dispatch = useAppDispatch();
 
   const handlePageChange = (_: ChangeEvent<unknown>, value: number) => {
-    dispatch(setGarageCurrentPage(value));
+    dispatch(action(value));
   };
   return (
     <div className={styles.wrapper}>
       <p>
-        Garage <span>({totalCars})</span>
+        {pageTitle} ({totalItems})
       </p>
       <Pagination
         count={totalPages}

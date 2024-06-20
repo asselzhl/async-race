@@ -5,9 +5,10 @@ import { Car } from '../Car/Car';
 
 import { stateStatus } from '../../store/constants';
 import { getCars } from '../../store/car/carThunk';
-import { GarageStatus } from '../GarageStatus/GarageStatus';
 import { getCarsList, getCarsStateStatus } from '../../store/car/selectors';
 import { getGarageCurrentPage } from '../../store/pages/selectors';
+import { PageStatus } from '../PageStatus/PageStatus';
+import { setGarageCurrentPage } from '../../store/pages/pagesSlice';
 
 export function Track() {
   const dispatch = useAppDispatch();
@@ -38,10 +39,12 @@ export function Track() {
         })}
       </ul>
 
-      <GarageStatus
-        totalCars={totalCars}
+      <PageStatus
+        totalItems={totalCars}
         totalPages={totalPages}
         currentPage={currentPage}
+        action={setGarageCurrentPage}
+        pageTitle="Garage"
       />
     </>
   );

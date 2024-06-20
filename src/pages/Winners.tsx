@@ -1,7 +1,8 @@
 import { WinnersTable } from '../components/WinnersTable/WinnersTable';
 import { SortOptions } from '../components/SortOptions/SortOptions';
-import { WinnersStatus } from '../components/WinnersStatus/WinnersStatus';
 import { useWinners } from './helpers/useWinners';
+import { PageStatus } from '../components/PageStatus/PageStatus';
+import { setWinnersCurrentPage } from '../store/pages/pagesSlice';
 
 export function Winners() {
   const {
@@ -18,10 +19,12 @@ export function Winners() {
 
       <WinnersTable currentWinners={currentWinners} />
 
-      <WinnersStatus
-        totalWinners={totalWinners}
+      <PageStatus
+        totalItems={totalWinners}
         totalPages={totalPages}
         currentPage={currentPage}
+        action={setWinnersCurrentPage}
+        pageTitle="Winners"
       />
     </>
   );

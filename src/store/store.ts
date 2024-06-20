@@ -5,12 +5,14 @@ import { carReducer } from './car/carSlice';
 import { carFormReducer } from './carForm/carFormSlice';
 import { pagesReducer } from './pages/pagesSlice';
 import { raceReducer } from './race/raceSlice';
+import { winnersReducer } from './winners/winnersSlice';
 
 export const rootReducer = combineReducers({
   cars: carReducer,
   carForm: carFormReducer,
   pages: pagesReducer,
   race: raceReducer,
+  winners: winnersReducer,
 });
 
 export const store = configureStore({
@@ -27,6 +29,8 @@ export const store = configureStore({
           'deleteCar/rejected',
           'updateCar/fulfilled',
           'updateCar/rejected',
+          'getWinners/fulfilled',
+          'getWinners/rejected',
         ],
       },
     }),

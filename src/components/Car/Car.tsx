@@ -51,7 +51,7 @@ export function Car({ car }: CarProps) {
       <FaCarSide
         size={70}
         color={car.color}
-        style={isAnimating ? carAnimation : { transform: 'translateX(0)' }}
+        style={isAnimating ? carAnimation : {}}
       />
 
       <h5 className={styles['car-name']}>{car.name}</h5>

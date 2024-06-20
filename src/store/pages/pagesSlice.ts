@@ -1,23 +1,34 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 interface PagesState {
-  currentPage: number;
+  garage: { currentPage: number };
+  winners: { currentPage: number };
 }
 
 const initialState: PagesState = {
-  currentPage: 1,
+  garage: {
+    currentPage: 1,
+  },
+  winners: {
+    currentPage: 1,
+  },
 };
 
 export const pagesSlice = createSlice({
   name: 'pages',
   initialState,
   reducers: {
-    setCurrentPage: (state, action) => {
-      state.currentPage = action.payload;
+    setGarageCurrentPage: (state, action) => {
+      state.garage.currentPage = action.payload;
+      return state;
+    },
+    setWinnersCurrentPage: (state, action) => {
+      state.winners.currentPage = action.payload;
       return state;
     },
   },
 });
 
-export const { setCurrentPage } = pagesSlice.actions;
+export const { setGarageCurrentPage, setWinnersCurrentPage } =
+  pagesSlice.actions;
 export const pagesReducer = pagesSlice.reducer;

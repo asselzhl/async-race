@@ -2,7 +2,7 @@ import { Pagination } from '@mui/material';
 
 import { ChangeEvent } from 'react';
 import { useAppDispatch } from '../../store/store';
-import { setCurrentPage } from '../../store/pages/pagesSlice';
+import { setGarageCurrentPage } from '../../store/pages/pagesSlice';
 
 import styles from './GarageStatus.module.css';
 
@@ -20,7 +20,7 @@ export function GarageStatus({
   const dispatch = useAppDispatch();
 
   const handlePageChange = (_: ChangeEvent<unknown>, value: number) => {
-    dispatch(setCurrentPage(value));
+    dispatch(setGarageCurrentPage(value));
   };
   return (
     <div className={styles.wrapper}>

@@ -7,7 +7,7 @@ import { stateStatus } from '../../store/constants';
 import { getCars } from '../../store/car/carThunk';
 import { GarageStatus } from '../GarageStatus/GarageStatus';
 import { getCarsList, getCarsStateStatus } from '../../store/car/selectors';
-import { getCurrentPage } from '../../store/pages/selectors';
+import { getGarageCurrentPage } from '../../store/pages/selectors';
 
 export function Track() {
   const dispatch = useAppDispatch();
@@ -15,7 +15,7 @@ export function Track() {
   const carsStatus = useSelector(getCarsStateStatus);
   const carsList = useSelector(getCarsList);
 
-  const currentPage = useSelector(getCurrentPage);
+  const currentPage = useSelector(getGarageCurrentPage);
 
   const carsPerPage = 7;
   const totalCars = carsList.length;

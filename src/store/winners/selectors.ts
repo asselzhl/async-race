@@ -1,6 +1,6 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { RootState } from '../store';
-import { getCarsList } from '../car/selectors';
+import { getCarsList } from '../carList/selectors';
 
 export const getWinnersStateStatus = (state: RootState) => state.winners.status;
 export const getWinnersList = (state: RootState) => state.winners.list;

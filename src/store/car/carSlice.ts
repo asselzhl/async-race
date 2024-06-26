@@ -1,58 +1,29 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { StateStatus, stateStatus } from '../constants';
-import { createCar, deleteCar, getCars, updateCar } from './carThunk';
 
-interface Car {
-  name: string;
-  color: string;
-  id: number;
+type DrivingStatus = 'initial' | 'driving' | 'finished';
+
+interface CarState {
+  carStatus: DrivingStatus;
+  animationDuration: number;
 }
 
-interface CarsState {
-  status: StateStatus;
-  list: Car[];
-  error: null | string;
+interface CarStateMap {
+  [id: string]: CarState;
 }
 
-const initialState: CarsState = {
-  status: stateStatus.idle,
-  list: [],
-  error: null,
-};
+const initialState: CarStateMap = {};
 
-export const carSlice = createSlice({
+const carSlice = createSlice({
   name: 'car',
   initialState,
   reducers: {
-    setGeneratedCars: (state, action) => {
-      state.list = [...state.list, ...action.payload];
+    updateCarStatus: (state, action) => {
+      const { carId, carStatus, animationDuration } = action.payload;
+      state[carId] = { carStatus, animationDuration };
       return state;
     },
   },
-  extraReducers: (builder) => {
-    builder
-      .addCase(getCars.fulfilled, (state, action) => {
-        state.status = stateStatus.succeeded;
-        state.list = action.payload.data;
-        return state;
-      })
-      .addCase(createCar.fulfilled, (state, action) => {
-        state.list.push(action.payload.data);
-        return state;
-      })
-      .addCase(updateCar.fulfilled, (state, action) => {
-        const updatedCourse = action.payload.data;
-        state.list = state.list.map((car) =>
-          car.id === updatedCourse.id ? updatedCourse : car
-        );
-        return state;
-      })
-      .addCase(deleteCar.fulfilled, (state, action) => {
-        state.list = state.list.filter((car) => car.id !== action.payload.id);
-        return state;
-      });
-  },
 });
 
-export const { setGeneratedCars } = carSlice.actions;
+export const { updateCarStatus } = carSlice.actions;
 export const carReducer = carSlice.reducer;

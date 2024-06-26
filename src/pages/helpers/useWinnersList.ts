@@ -1,7 +1,7 @@
 import { ChangeEvent, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from '../../store/store';
-import { getCarsStateStatus } from '../../store/car/selectors';
+import { getCarsStateStatus } from '../../store/carList/selectors';
 import {
   getWinnersStateStatus,
   getWinnersWithCarDetails,
@@ -9,7 +9,7 @@ import {
 import { getWinnersCurrentPage } from '../../store/pages/selectors';
 import { stateStatus } from '../../store/constants';
 import { getWinners } from '../../store/winners/winnersThunk';
-import { getCars } from '../../store/car/carThunk';
+import { getCars } from '../../store/carList/carListThunk';
 
 interface WinnersItem {
   id: number;
@@ -26,7 +26,7 @@ const getCurrentWinners = (winnersList: WinnersItem[], currentPage: number) => {
   return winnersList.slice(startIndex, startIndex + winnersPerPage);
 };
 
-export const useWinners = () => {
+export const useWinnersList = () => {
   const dispatch = useAppDispatch();
   const [sortCriteria, setSortCriteria] = useState({
     sortBy: 'id',

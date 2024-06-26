@@ -3,7 +3,7 @@ import * as Yup from 'yup';
 import { Button } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from '../../store/store';
-import { createCar, updateCar } from '../../store/car/carThunk';
+import { createCar, updateCar } from '../../store/carList/carListThunk';
 
 import styles from './CarForm.module.css';
 import { ColorPickerWithError } from './components/ColorPickerWithError';

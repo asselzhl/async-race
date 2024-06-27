@@ -1,9 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { agent } from '../carList/carListThunk';
 
+type SortBy = 'id' | 'wins' | 'time';
+type OrderBy = 'ASC' | 'DESC';
+
 interface WinnersSortParams {
-  sortBy: string;
-  orderBy: string;
+  sortBy: SortBy;
+  orderBy: OrderBy;
 }
 
 interface Winner {

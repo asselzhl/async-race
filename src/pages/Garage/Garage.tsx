@@ -10,6 +10,7 @@ export function Garage() {
     useGarageList();
   return (
     <>
+      <h1>Garage</h1>
       <ControlPanel />
       <Track />
       <Modal open={showWinner} onClose={handleWinnerModalClose}>

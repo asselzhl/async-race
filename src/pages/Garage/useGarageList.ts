@@ -16,7 +16,6 @@ export const useGarageList = () => {
   useEffect(() => {
     const isWinnerDefined = !!winner.id;
     setShowWinner(isWinnerDefined);
-
     if (isWinnerDefined) {
       const winnerIndex = winnersList.findIndex(
         (winnerFromList) => winnerFromList.id === winner.id
@@ -33,7 +32,8 @@ export const useGarageList = () => {
         dispatch(updateWinner({ id: winner.id, winnerData: updatedWinner }));
       }
     }
-  }, [winner, dispatch, winnersList]);
+    // eslint-disable-next-line
+  }, [winner, dispatch]);
 
   const handleWinnerModalClose = () => {
     setShowWinner(false);

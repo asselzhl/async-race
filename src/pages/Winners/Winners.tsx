@@ -15,6 +15,7 @@ export function Winners() {
 
   return (
     <>
+      <h1>Winners</h1>
       <SortOptions handleSortChange={handleSortChange} />
 
       <WinnersTable currentWinners={currentWinners} />

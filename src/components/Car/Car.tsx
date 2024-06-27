@@ -1,5 +1,3 @@
-import { FaCarSide } from 'react-icons/fa6';
-
 import styles from './Car.module.css';
 
 import { ManagementButtons } from './components/ManagementButtons';
@@ -7,6 +5,7 @@ import { EngineControlButtons } from './components/EngineControlButtons';
 
 import { useCarEngine } from './helpers/useCarEngine';
 import { getCarAnimation } from './helpers/getCarAnimation';
+import { CarIcon } from './components/CarIcon';
 
 interface CarsItem {
   name: string;
@@ -30,11 +29,9 @@ export function Car({ car }: CarProps) {
       />
 
       <div className={styles.road}>
-        <FaCarSide
-          size={70}
+        <CarIcon
           color={car.color}
-          className={styles.car}
-          style={getCarAnimation({ carStatus, animationDuration })}
+          carStyle={getCarAnimation({ carStatus, animationDuration })}
         />
 
         <h5 className={styles['car-name']}>{car.name}</h5>

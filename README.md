@@ -1,3 +1,6 @@
+**Deploy:** https://async-race.netlify.app/
+**Score:**
+
 ## Checklist
 
 ## 🚀 UI Deployment

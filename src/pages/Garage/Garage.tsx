@@ -1,10 +1,9 @@
 import { Modal } from '@mui/material';
-import { ControlPanel } from '../components/ControlPanel/ControlPanel';
-import { Track } from '../components/Track/Track';
 
 import styles from './Garage.module.css';
-
-import { useGarageList } from './helpers/useGarageList';
+import { useGarageList } from './useGarageList';
+import { ControlPanel } from '../../components/ControlPanel/ControlPanel';
+import { Track } from '../../components/Track/Track';
 
 export function Garage() {
   const { showWinner, winnerCarName, winner, handleWinnerModalClose } =

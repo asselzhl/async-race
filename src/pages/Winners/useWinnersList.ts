@@ -19,11 +19,11 @@ interface WinnersItem {
   time: number;
 }
 
-const winnersPerPage = 10;
+const WINNERS_PER_PAGE = 10;
 
 const getCurrentWinners = (winnersList: WinnersItem[], currentPage: number) => {
-  const startIndex = (currentPage - 1) * winnersPerPage;
-  return winnersList.slice(startIndex, startIndex + winnersPerPage);
+  const startIndex = (currentPage - 1) * WINNERS_PER_PAGE;
+  return winnersList.slice(startIndex, startIndex + WINNERS_PER_PAGE);
 };
 
 export const useWinnersList = () => {
@@ -38,7 +38,7 @@ export const useWinnersList = () => {
   const winnersList = useSelector(getWinnersWithCarDetails);
   const currentPage = useSelector(getWinnersCurrentPage);
   const totalWinners = winnersList.length;
-  const totalPages = Math.ceil(totalWinners / winnersPerPage);
+  const totalPages = Math.ceil(totalWinners / WINNERS_PER_PAGE);
 
   useEffect(() => {
     if (winnersStatus === stateStatus.idle) {
@@ -47,7 +47,7 @@ export const useWinnersList = () => {
     if (carsStatus === stateStatus.idle) {
       dispatch(getCars());
     }
-  });
+  }, [winnersStatus, carsStatus, sortCriteria, dispatch]);
   const currentWinners = getCurrentWinners(winnersList, currentPage);
 
   const handleSortChange = (event: ChangeEvent<HTMLInputElement>) => {

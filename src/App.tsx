@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import { Container } from '@mui/material';
-import { Garage } from './pages/Garage';
-import { Winners } from './pages/Winners';
+import { Garage } from './pages/Garage/Garage';
+import { Winners } from './pages/Winners/Winners';
 import { routePaths } from './pages/helpers/routePaths';
 import { Header } from './components/Header/Header';
 

@@ -11,6 +11,12 @@ import { stateStatus } from '../../store/constants';
 import { getWinners } from '../../store/winners/winnersThunk';
 import { getCars } from '../../store/carList/carListThunk';
 
+type SortBy = 'id' | 'wins' | 'time';
+type OrderBy = 'ASC' | 'DESC';
+interface SortParams {
+  sortBy: SortBy;
+  orderBy: OrderBy;
+}
 interface WinnersItem {
   id: number;
   color: string;
@@ -28,7 +34,7 @@ const getCurrentWinners = (winnersList: WinnersItem[], currentPage: number) => {
 
 export const useWinnersList = () => {
   const dispatch = useAppDispatch();
-  const [sortCriteria, setSortCriteria] = useState({
+  const [sortCriteria, setSortCriteria] = useState<SortParams>({
     sortBy: 'id',
     orderBy: 'ASC',
   });

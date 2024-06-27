@@ -4,12 +4,11 @@ import { useAppDispatch } from '../../store/store';
 
 import styles from './PageStatus.module.css';
 
-// TODO: action type
 interface PageStatusProps {
   totalItems: number;
   totalPages: number;
   currentPage: number;
-  action;
+  action: (page: number) => { type: string; payload: number };
   pageTitle: string;
 }
 

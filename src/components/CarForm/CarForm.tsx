@@ -18,6 +18,10 @@ import {
   getUpdatedCarFormData,
 } from '../../store/carForm/selectors';
 
+interface CarFormValues {
+  name: string;
+  color: string;
+}
 interface CarFormProps {
   type: 'create' | 'update';
 }
@@ -37,16 +41,17 @@ const formConfigByType = {
   },
 } as const;
 
-// TODO: type errors
 export function CarForm({ type }: CarFormProps) {
   const dispatch = useAppDispatch();
-
   const currentFormConfig = formConfigByType[type];
-
   const carFormData = useSelector(currentFormConfig.selector);
+  const initialValues: CarFormValues = {
+    name: carFormData.name || '',
+    color: carFormData.color || '',
+  };
 
   const formik = useFormik({
-    initialValues: carFormData,
+    initialValues,
     enableReinitialize: true,
     onSubmit: (values, { resetForm }) => {
       dispatch(currentFormConfig.onSubmitAction(values));

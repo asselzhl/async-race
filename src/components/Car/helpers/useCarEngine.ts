@@ -31,7 +31,6 @@ const updateCarStatusAction = (
   );
 };
 
-// TODO type error
 const changeEngineStatusAndUpdate = async (
   carId: number,
   status: EngineStatus,

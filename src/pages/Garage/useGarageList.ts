@@ -6,7 +6,6 @@ import { getWinnersList } from '../../store/winners/selectors';
 import { createWinner, updateWinner } from '../../store/winners/winnersThunk';
 import { resetRace } from '../../store/race/raceSlice';
 
-// TODO: type errors
 export const useGarageList = () => {
   const dispatch = useAppDispatch();
   const [showWinner, setShowWinner] = useState(false);
@@ -29,7 +28,7 @@ export const useGarageList = () => {
         const { wins, time } = winnersList[winnerIndex];
         const updatedWinner = {
           wins: 1 + wins,
-          time: Math.min(winner.time, time),
+          time: Math.min(winner.time ?? Infinity, time),
         };
         dispatch(updateWinner({ id: winner.id, winnerData: updatedWinner }));
       }

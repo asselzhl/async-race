@@ -10,16 +10,16 @@ interface WinnersSortParams {
 }
 
 interface Winner {
-  id: number | string;
-  wins: number;
-  time: number;
+  id: number | null;
+  wins: number | null;
+  time: number | null;
 }
 
 interface UpdatedWinner {
-  id: number;
+  id: number | null;
   winnerData: {
-    wins: number;
-    time: number;
+    wins: number | null;
+    time: number | null;
   };
 }
 

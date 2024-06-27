@@ -8,6 +8,8 @@ import { stateStatus } from '../../store/constants';
 import { getCars } from '../../store/carList/carListThunk';
 import { getWinners } from '../../store/winners/winnersThunk';
 
+const CAR_PER_PAGE = 7;
+
 export const useCarsData = () => {
   const dispatch = useAppDispatch();
 
@@ -18,9 +20,8 @@ export const useCarsData = () => {
 
   const currentPage = useSelector(getGarageCurrentPage);
 
-  const carsPerPage = 7;
   const totalCars = carsList.length;
-  const totalPages = Math.ceil(totalCars / carsPerPage);
+  const totalPages = Math.ceil(totalCars / CAR_PER_PAGE);
 
   useEffect(() => {
     if (carsStatus === stateStatus.idle) {
@@ -36,8 +37,8 @@ export const useCarsData = () => {
     }
   }, [carsStatus, dispatch, winnersStatus]);
 
-  const startIndex = (currentPage - 1) * carsPerPage;
-  const currentCars = carsList.slice(startIndex, startIndex + carsPerPage);
+  const startIndex = (currentPage - 1) * CAR_PER_PAGE;
+  const currentCars = carsList.slice(startIndex, startIndex + CAR_PER_PAGE);
 
   return {
     currentCars,

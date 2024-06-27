@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { agent } from '../carList/carListThunk';
 
-interface SortValue {
+interface WinnersSortParams {
   sortBy: string;
   orderBy: string;
 }
@@ -22,7 +22,7 @@ interface UpdatedWinner {
 
 export const getWinners = createAsyncThunk(
   'getWinners',
-  async (sortValue: SortValue, thunkApi) => {
+  async (sortValue: WinnersSortParams, thunkApi) => {
     try {
       const data = await agent(
         `/winners/?_sort=${sortValue.sortBy}&_order=${sortValue.orderBy}`

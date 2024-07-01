@@ -58,7 +58,7 @@ const handleDriveCar = async (
         time: timeInSeconds,
       })
     );
-    dispatch(setRacingStatus('finished'));
+    dispatch(setRacingStatus('reset'));
   } catch {
     updateCarStatusAction(dispatch, carId, 'finished', timeInSeconds);
   }

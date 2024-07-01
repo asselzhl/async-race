@@ -37,7 +37,7 @@ module.exports = {
     'no-magic-numbers': [
       'error',
       {
-        ignore: [0, 1, -1, 10, 100],
+        ignore: [0, 1, -1],
         ignoreArrayIndexes: true,
         enforceConst: true,
       },

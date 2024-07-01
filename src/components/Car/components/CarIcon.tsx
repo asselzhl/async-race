@@ -8,12 +8,5 @@ interface CarIconProps {
 }
 
 export function CarIcon({ color, carStyle }: CarIconProps) {
-  return (
-    <FaCarSide
-      size={70}
-      color={color}
-      className={styles.car}
-      style={carStyle}
-    />
-  );
+  return <FaCarSide color={color} className={styles.car} style={carStyle} />;
 }

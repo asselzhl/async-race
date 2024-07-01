@@ -4,6 +4,7 @@
   justify-content: space-between;
   flex-wrap: wrap;
   margin-bottom: 3rem;
+  gap: 1.5rem;
 }
 
 .race-controls {

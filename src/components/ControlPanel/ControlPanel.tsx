@@ -4,7 +4,7 @@ import { CarForm } from '../CarForm/CarForm';
 import styles from './ControlPanel.module.css';
 import { generateRandomCar } from '../../helpers/generateRandomCar';
 import { useAppDispatch } from '../../store/store';
-import { createCar } from '../../store/car/carThunk';
+import { createCar } from '../../store/carList/carListThunk';
 import { RaceControls } from './components/RaceControls';
 
 export function ControlPanel() {

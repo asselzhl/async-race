@@ -1,8 +1,9 @@
 import { Button, ButtonGroup } from '@mui/material';
 import { useAppDispatch } from '../../../store/store';
-import { deleteCar } from '../../../store/car/carThunk';
+import { deleteCar } from '../../../store/carList/carListThunk';
 
 import { setUpdatedCarFormData } from '../../../store/carForm/carFormSlice';
+import { deleteWinner } from '../../../store/winners/winnersThunk';
 
 interface CarsItem {
   name: string;
@@ -22,6 +23,7 @@ export function ManagementButtons({ car }: ManagementButtonsProps) {
 
   const handleDeleteButtonClick = () => {
     dispatch(deleteCar(car.id));
+    dispatch(deleteWinner(car.id));
   };
   return (
     <ButtonGroup variant="outlined" size="small" orientation="vertical">

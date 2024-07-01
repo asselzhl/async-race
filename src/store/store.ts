@@ -1,15 +1,17 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
 
-import { carReducer } from './car/carSlice';
+import { carListReducer } from './carList/carListSlice';
 import { carFormReducer } from './carForm/carFormSlice';
 import { pagesReducer } from './pages/pagesSlice';
 import { raceReducer } from './race/raceSlice';
 import { winnersReducer } from './winners/winnersSlice';
+import { carReducer } from './car/carSlice';
 
 export const rootReducer = combineReducers({
-  cars: carReducer,
+  carList: carListReducer,
   carForm: carFormReducer,
+  car: carReducer,
   pages: pagesReducer,
   race: raceReducer,
   winners: winnersReducer,
@@ -31,6 +33,12 @@ export const store = configureStore({
           'updateCar/rejected',
           'getWinners/fulfilled',
           'getWinners/rejected',
+          'createWinner/fulfilled',
+          'createWinner/rejected',
+          'updateWinner/fulfilled',
+          'updateWinner/rejected',
+          'deleteWinner/fulfilled',
+          'deleteWinner/rejected',
         ],
       },
     }),

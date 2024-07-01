@@ -1,14 +1,11 @@
-import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { FaCarSide } from 'react-icons/fa6';
-
 import styles from './Car.module.css';
 
 import { ManagementButtons } from './components/ManagementButtons';
 import { EngineControlButtons } from './components/EngineControlButtons';
-import { useEngineControl } from './helpers/useEngineControl';
-import { getCarAnimationStyle } from './helpers/getCarAnimationStyle';
-import { getIsRacing } from '../../store/race/selectors';
+
+import { useCarEngine } from './helpers/useCarEngine';
+import { getCarAnimation } from './helpers/getCarAnimation';
+import { CarIcon } from './components/CarIcon';
 
 interface CarsItem {
   name: string;
@@ -20,41 +17,25 @@ interface CarProps {
 }
 
 export function Car({ car }: CarProps) {
-  const isRacing = useSelector(getIsRacing);
-  const {
-    animationDuration,
-    isAnimating,
-    handleStartEngine,
-    handleStopEngine,
-  } = useEngineControl(car);
-
-  const carAnimation = getCarAnimationStyle(isAnimating, animationDuration);
-
-  useEffect(() => {
-    if (isRacing) {
-      handleStartEngine();
-    }
-    if (!isRacing) {
-      handleStopEngine();
-    }
-  });
-
+  const { carStatus, animationDuration, handleStartEngine, handleStopEngine } =
+    useCarEngine(car);
   return (
-    <div className={styles.wrapper}>
+    <li className={styles.wrapper}>
       <ManagementButtons car={car} />
       <EngineControlButtons
         handleStartEngine={handleStartEngine}
         handleStopEngine={handleStopEngine}
-        isAnimating={isAnimating}
+        isDriving={carStatus !== 'initial'}
       />
 
-      <FaCarSide
-        size={70}
-        color={car.color}
-        style={isAnimating ? carAnimation : {}}
-      />
+      <div className={styles.road}>
+        <CarIcon
+          color={car.color}
+          carStyle={getCarAnimation({ carStatus, animationDuration })}
+        />
 
-      <h5 className={styles['car-name']}>{car.name}</h5>
-    </div>
+        <h5 className={styles['car-name']}>{car.name}</h5>
+      </div>
+    </li>
   );
 }

@@ -1,9 +1,11 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { RootState } from '../store';
-import { getCarsList } from '../car/selectors';
+import { getCarsList } from '../carList/selectors';
 
 export const getWinnersStateStatus = (state: RootState) => state.winners.status;
 export const getWinnersList = (state: RootState) => state.winners.list;
+
+const DEFAULT_CAR_DETAILS = { name: '', color: '' };
 
 export const getWinnersWithCarDetails = createSelector(
   [getCarsList, getWinnersList],
@@ -12,8 +14,9 @@ export const getWinnersWithCarDetails = createSelector(
       const carDetails = carsList.find((car) => car.id === winner.id);
       return {
         ...winner,
-        name: carDetails ? carDetails.name : '',
-        color: carDetails ? carDetails.color : '',
+        ...(carDetails
+          ? { name: carDetails.name, color: carDetails.color }
+          : DEFAULT_CAR_DETAILS),
       };
     });
   }

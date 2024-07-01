@@ -6,8 +6,8 @@ export const agent = axios.create({
 });
 
 interface CarFormData {
-  name: string;
-  color: string;
+  name?: string;
+  color?: string;
   id?: number;
 }
 

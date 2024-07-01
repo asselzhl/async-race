@@ -3,7 +3,7 @@ import { Container } from '@mui/material';
 import { Garage } from './pages/Garage';
 import { Winners } from './pages/Winners';
 import { routePaths } from './pages/helpers/routePaths';
-import { Header } from './components/Header/Header';
+import { Header } from './components/Header';
 
 function App() {
   return (

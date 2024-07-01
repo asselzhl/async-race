@@ -8,10 +8,10 @@ import { ChangeEvent } from 'react';
 import styles from './SortOptions.module.css';
 
 interface SortOptionsProps {
-  handleSortChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  handleSortParamsChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
-export function SortOptions({ handleSortChange }: SortOptionsProps) {
+export function SortOptions({ handleSortParamsChange }: SortOptionsProps) {
   return (
     <div className={styles.wrapper}>
       <FormControl>
@@ -20,7 +20,7 @@ export function SortOptions({ handleSortChange }: SortOptionsProps) {
           row
           defaultValue="id"
           name="sortBy"
-          onChange={handleSortChange}
+          onChange={handleSortParamsChange}
         >
           <FormControlLabel value="id" control={<Radio />} label="ID" />
           <FormControlLabel value="wins" control={<Radio />} label="Wins" />
@@ -34,7 +34,7 @@ export function SortOptions({ handleSortChange }: SortOptionsProps) {
           row
           defaultValue="ASC"
           name="orderBy"
-          onChange={handleSortChange}
+          onChange={handleSortParamsChange}
         >
           <FormControlLabel value="ASC" control={<Radio />} label="Ascending" />
           <FormControlLabel

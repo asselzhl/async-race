@@ -1,21 +1,21 @@
-import { useSelector } from 'react-redux';
 import { Button } from '@mui/material';
 
+import { useSelector } from 'react-redux';
 import styles from '../ControlPanel.module.css';
+import { getRacingStatus } from '../../../store/race/selectors';
 import { useAppDispatch } from '../../../store/store';
-import { setIsRacing } from '../../../store/race/raceSlice';
-import { getIsRacing } from '../../../store/race/selectors';
+import { resetRace, setRacingStatus } from '../../../store/race/raceSlice';
 
 export function RaceControls() {
   const dispatch = useAppDispatch();
-  const isRacing = useSelector(getIsRacing);
-
+  const racingStatus = useSelector(getRacingStatus);
   const handleRaceButtonClick = () => {
-    dispatch(setIsRacing(true));
+    dispatch(setRacingStatus('racing'));
   };
 
   const handleResetButtonClick = () => {
-    dispatch(setIsRacing(false));
+    dispatch(setRacingStatus('reset'));
+    dispatch(resetRace());
   };
   return (
     <div className={styles['race-controls']}>
@@ -23,7 +23,7 @@ export function RaceControls() {
         variant="outlined"
         size="small"
         onClick={handleRaceButtonClick}
-        disabled={isRacing}
+        disabled={racingStatus !== 'initial'}
       >
         Race
       </Button>
@@ -31,7 +31,7 @@ export function RaceControls() {
         variant="outlined"
         size="small"
         onClick={handleResetButtonClick}
-        disabled={!isRacing}
+        disabled={!(racingStatus !== 'initial')}
       >
         Reset
       </Button>

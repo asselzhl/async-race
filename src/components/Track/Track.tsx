@@ -1,47 +1,29 @@
-import { useSelector } from 'react-redux';
-import { useEffect } from 'react';
-import { useAppDispatch } from '../../store/store';
 import { Car } from '../Car/Car';
 
-import { stateStatus } from '../../store/constants';
-import { getCars } from '../../store/car/carThunk';
-import { GarageStatus } from '../GarageStatus/GarageStatus';
-import { getCarsList, getCarsStateStatus } from '../../store/car/selectors';
-import { getGarageCurrentPage } from '../../store/pages/selectors';
+import { PageStatus } from '../PageStatus/PageStatus';
+import { setGarageCurrentPage } from '../../store/pages/pagesSlice';
+
+import styles from './Track.module.css';
+
+import { useCarsData } from './useCarsData';
 
 export function Track() {
-  const dispatch = useAppDispatch();
-
-  const carsStatus = useSelector(getCarsStateStatus);
-  const carsList = useSelector(getCarsList);
-
-  const currentPage = useSelector(getGarageCurrentPage);
-
-  const carsPerPage = 7;
-  const totalCars = carsList.length;
-  const totalPages = Math.ceil(totalCars / carsPerPage);
-
-  useEffect(() => {
-    if (carsStatus === stateStatus.idle) {
-      dispatch(getCars());
-    }
-  }, [carsStatus, dispatch]);
-
-  const startIndex = (currentPage - 1) * carsPerPage;
-  const currentCars = carsList.slice(startIndex, startIndex + carsPerPage);
+  const { currentCars, totalCars, totalPages, currentPage } = useCarsData();
 
   return (
     <>
-      <ul>
+      <ul className={styles.list}>
         {currentCars.map((car) => {
           return <Car key={car.id} car={car} />;
         })}
       </ul>
 
-      <GarageStatus
-        totalCars={totalCars}
+      <PageStatus
+        totalItems={totalCars}
         totalPages={totalPages}
         currentPage={currentPage}
+        action={setGarageCurrentPage}
+        pageTitle="Garage"
       />
     </>
   );

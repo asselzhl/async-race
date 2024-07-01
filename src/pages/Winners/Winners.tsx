@@ -6,7 +6,7 @@ import { setWinnersCurrentPage } from '../../store/pages/pagesSlice';
 
 export function Winners() {
   const {
-    handleSortChange,
+    handleSortParamsChange,
     currentWinners,
     totalWinners,
     totalPages,
@@ -16,7 +16,7 @@ export function Winners() {
   return (
     <>
       <h1>Winners</h1>
-      <SortOptions handleSortChange={handleSortChange} />
+      <SortOptions handleSortParamsChange={handleSortParamsChange} />
 
       <WinnersTable currentWinners={currentWinners} />
 

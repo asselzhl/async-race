@@ -20,7 +20,7 @@ export function Car({ car }: CarProps) {
   const { carStatus, animationDuration, handleStartEngine, handleStopEngine } =
     useCarEngine(car);
   return (
-    <div className={styles.wrapper}>
+    <li className={styles.wrapper}>
       <ManagementButtons car={car} />
       <EngineControlButtons
         handleStartEngine={handleStartEngine}
@@ -36,6 +36,6 @@ export function Car({ car }: CarProps) {
 
         <h5 className={styles['car-name']}>{car.name}</h5>
       </div>
-    </div>
+    </li>
   );
 }

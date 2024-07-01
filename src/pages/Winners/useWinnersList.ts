@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from '../../store/store';
 import { getCarsStateStatus } from '../../store/carList/selectors';
@@ -32,6 +32,10 @@ const getCurrentWinners = (winnersList: WinnersItem[], currentPage: number) => {
   return winnersList.slice(startIndex, startIndex + WINNERS_PER_PAGE);
 };
 
+const getTotalPages = (totalWinners: number) => {
+  return Math.ceil(totalWinners / WINNERS_PER_PAGE);
+};
+
 export const useWinnersList = () => {
   const dispatch = useAppDispatch();
   const [sortCriteria, setSortCriteria] = useState<SortParams>({
@@ -44,8 +48,7 @@ export const useWinnersList = () => {
   const winnersList = useSelector(getWinnersWithCarDetails);
   const currentPage = useSelector(getWinnersCurrentPage);
   const totalWinners = winnersList.length;
-  const totalPages = Math.ceil(totalWinners / WINNERS_PER_PAGE);
-
+  const totalPages = useMemo(() => getTotalPages(totalWinners), [totalWinners]);
   useEffect(() => {
     if (winnersStatus === stateStatus.idle) {
       dispatch(getWinners(sortCriteria));
@@ -54,18 +57,19 @@ export const useWinnersList = () => {
       dispatch(getCars());
     }
   }, [winnersStatus, carsStatus, sortCriteria, dispatch]);
-  const currentWinners = getCurrentWinners(winnersList, currentPage);
-
-  const handleSortChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const currentWinners = useMemo(
+    () => getCurrentWinners(winnersList, currentPage),
+    [winnersList, currentPage]
+  );
+  const handleSortParamsChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     const newSortCriteria = { ...sortCriteria, [name]: value };
     setSortCriteria(newSortCriteria);
     dispatch(getWinners(newSortCriteria));
   };
-
   return {
     sortCriteria,
-    handleSortChange,
+    handleSortParamsChange,
     currentWinners,
     totalWinners,
     totalPages,

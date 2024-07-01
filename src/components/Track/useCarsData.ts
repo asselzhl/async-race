@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useAppDispatch } from '../../store/store';
 import { getCarsList, getCarsStateStatus } from '../../store/carList/selectors';
 import { getWinnersStateStatus } from '../../store/winners/selectors';
@@ -8,7 +8,18 @@ import { stateStatus } from '../../store/constants';
 import { getCars } from '../../store/carList/carListThunk';
 import { getWinners } from '../../store/winners/winnersThunk';
 
+interface CarsItem {
+  id: number;
+  name: string;
+  color: string;
+}
+
 const CAR_PER_PAGE = 7;
+
+const getCurrentCars = (carsList: CarsItem[], currentPage: number) => {
+  const startIndex = (currentPage - 1) * CAR_PER_PAGE;
+  return carsList.slice(startIndex, startIndex + CAR_PER_PAGE);
+};
 
 export const useCarsData = () => {
   const dispatch = useAppDispatch();
@@ -35,10 +46,12 @@ export const useCarsData = () => {
         })
       );
     }
-  }, [carsStatus, dispatch, winnersStatus]);
+  }, [carsStatus, winnersStatus, dispatch]);
 
-  const startIndex = (currentPage - 1) * CAR_PER_PAGE;
-  const currentCars = carsList.slice(startIndex, startIndex + CAR_PER_PAGE);
+  const currentCars = useMemo(
+    () => getCurrentCars(carsList, currentPage),
+    [carsList, currentPage]
+  );
 
   return {
     currentCars,

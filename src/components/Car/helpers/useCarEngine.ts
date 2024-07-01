@@ -16,6 +16,8 @@ interface Car {
 }
 type EngineStatus = 'started' | 'drive' | 'stopped';
 
+const MS_IN_SECOND = 1000;
+
 const updateCarStatusAction = (
   dispatch: Dispatch,
   carId: number,
@@ -38,7 +40,8 @@ const changeEngineStatusAndUpdate = async (
 ): Promise<number> => {
   const response = await changeEngineStatus({ carID: carId, status });
   const { velocity, distance } = response.data;
-  const timeInSeconds = Math.round(distance / velocity / 10) / 100;
+  const timeInMS = Math.round(distance / velocity);
+  const timeInSeconds = timeInMS / MS_IN_SECOND;
 
   updateCarStatusAction(dispatch, carId, 'driving', timeInSeconds);
 

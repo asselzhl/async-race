@@ -1,6 +1,8 @@
 import { FormikProps } from 'formik';
 import { TextField } from '@mui/material';
 import styles from '../CarForm.module.css';
+import { useAppDispatch } from '../../../store/store';
+import { CarFormAction } from '../../../store/carForm/carFormSlice';
 
 interface CarFormValues {
   name: string;
@@ -9,9 +11,16 @@ interface CarFormValues {
 
 interface TextFieldProps {
   formik: FormikProps<CarFormValues>;
+  onChangeAction: CarFormAction;
 }
 
-function TextFieldWithError({ formik }: TextFieldProps) {
+export function TextFieldWithError({ formik, onChangeAction }: TextFieldProps) {
+  const dispatch = useAppDispatch();
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    formik.setFieldValue('name', e.target.value);
+
+    dispatch(onChangeAction({ name: e.target.value }));
+  };
   return (
     <div>
       <TextField
@@ -19,7 +28,7 @@ function TextFieldWithError({ formik }: TextFieldProps) {
         size="small"
         name="name"
         value={formik.values.name}
-        onChange={formik.handleChange}
+        onChange={handleNameChange}
         className={styles['text-field']}
       />
       <div className={styles.error}>
@@ -28,5 +37,3 @@ function TextFieldWithError({ formik }: TextFieldProps) {
     </div>
   );
 }
-
-export default TextFieldWithError;

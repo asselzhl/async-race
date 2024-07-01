@@ -1,28 +1,55 @@
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Button } from '@mui/material';
+import { useSelector } from 'react-redux';
 import { useAppDispatch } from '../../store/store';
-import { createCar } from '../../store/car/carThunk';
+import { createCar, updateCar } from '../../store/car/carThunk';
 
 import styles from './CarForm.module.css';
-import ColorPickerWithError from './components/ColorPickerWithError';
-import TextFieldWithError from './components/TextFieldWithError';
+import { ColorPickerWithError } from './components/ColorPickerWithError';
+import { TextFieldWithError } from './components/TextFieldWithError';
+
+import {
+  setNewCarFormData,
+  setUpdatedCarFormData,
+} from '../../store/carForm/carFormSlice';
+import {
+  getNewCarFormData,
+  getUpdatedCarFormData,
+} from '../../store/carForm/selectors';
 
 interface CarFormProps {
-  type: string;
+  type: 'create' | 'update';
 }
 
-function CarForm({ type }: CarFormProps) {
+const formConfigByType = {
+  create: {
+    buttonText: 'Create',
+    onSubmitAction: createCar,
+    selector: getNewCarFormData,
+    onChangeAction: setNewCarFormData,
+  },
+  update: {
+    buttonText: 'Update',
+    onSubmitAction: updateCar,
+    selector: getUpdatedCarFormData,
+    onChangeAction: setUpdatedCarFormData,
+  },
+} as const;
+
+// TODO: type errors
+export function CarForm({ type }: CarFormProps) {
   const dispatch = useAppDispatch();
-  const buttonText = type === 'create' ? 'Create' : 'Update';
+
+  const currentFormConfig = formConfigByType[type];
+
+  const carFormData = useSelector(currentFormConfig.selector);
 
   const formik = useFormik({
-    initialValues: {
-      name: '',
-      color: '#000000',
-    },
+    initialValues: carFormData,
+    enableReinitialize: true,
     onSubmit: (values, { resetForm }) => {
-      dispatch(createCar(values));
+      dispatch(currentFormConfig.onSubmitAction(values));
 
       resetForm();
     },
@@ -34,14 +61,18 @@ function CarForm({ type }: CarFormProps) {
 
   return (
     <form action="" className={styles.form} onSubmit={formik.handleSubmit}>
-      <TextFieldWithError formik={formik} />
-      <ColorPickerWithError formik={formik} />
+      <TextFieldWithError
+        formik={formik}
+        onChangeAction={currentFormConfig.onChangeAction}
+      />
+      <ColorPickerWithError
+        formik={formik}
+        onChangeAction={currentFormConfig.onChangeAction}
+      />
 
       <Button variant="outlined" type="submit" size="small">
-        {buttonText}
+        {currentFormConfig.buttonText}
       </Button>
     </form>
   );
 }
-
-export default CarForm;

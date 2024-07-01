@@ -1,45 +1,60 @@
-import { Button, ButtonGroup } from '@mui/material';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { FaCarSide } from 'react-icons/fa6';
 
 import styles from './Car.module.css';
-import { useAppDispatch } from '../../store/store';
-import { deleteCar } from '../../store/car/carThunk';
+
+import { ManagementButtons } from './components/ManagementButtons';
+import { EngineControlButtons } from './components/EngineControlButtons';
+import { useEngineControl } from './helpers/useEngineControl';
+import { getCarAnimationStyle } from './helpers/getCarAnimationStyle';
+import { getIsRacing } from '../../store/race/selectors';
 
 interface CarsItem {
   name: string;
   color: string;
-  id: string;
+  id: number;
 }
 interface CarProps {
   car: CarsItem;
 }
 
-function Car({ car }: CarProps) {
-  const dispatch = useAppDispatch();
+export function Car({ car }: CarProps) {
+  const isRacing = useSelector(getIsRacing);
+  const {
+    animationDuration,
+    isAnimating,
+    handleStartEngine,
+    handleStopEngine,
+  } = useEngineControl(car);
 
-  const handleDeleteButtonClick = () => {
-    dispatch(deleteCar(car.id));
-  };
+  const carAnimation = getCarAnimationStyle(isAnimating, animationDuration);
+
+  useEffect(() => {
+    if (isRacing) {
+      handleStartEngine();
+    }
+    if (!isRacing) {
+      handleStopEngine();
+    }
+  });
+
   return (
     <div className={styles.wrapper}>
-      <ButtonGroup variant="outlined" size="small" orientation="vertical">
-        <Button>Edit</Button>
-        <Button onClick={handleDeleteButtonClick}>Remove</Button>
-      </ButtonGroup>
+      <ManagementButtons car={car} />
+      <EngineControlButtons
+        handleStartEngine={handleStartEngine}
+        handleStopEngine={handleStopEngine}
+        isAnimating={isAnimating}
+      />
 
-      <ButtonGroup variant="contained" size="small" orientation="vertical">
-        <Button>A</Button>
-        <Button>B</Button>
-      </ButtonGroup>
+      <FaCarSide
+        size={70}
+        color={car.color}
+        style={isAnimating ? carAnimation : {}}
+      />
 
-      <div>
-        <FaCarSide size={70} color={car.color} />
-      </div>
-
-      <div>
-        <h5 className={styles['car-name']}>{car.name}</h5>
-      </div>
+      <h5 className={styles['car-name']}>{car.name}</h5>
     </div>
   );
 }
-export default Car;

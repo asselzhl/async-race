@@ -1,23 +1,21 @@
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { useAppDispatch } from '../../store/store';
-import Car from '../Car/Car';
-import {
-  getCarsList,
-  getCarsStateStatus,
-  getCurrentPage,
-} from '../../store/selectors';
+import { Car } from '../Car/Car';
+
 import { stateStatus } from '../../store/constants';
 import { getCars } from '../../store/car/carThunk';
-import GarageStatus from '../GarageStatus/GarageStatus';
+import { GarageStatus } from '../GarageStatus/GarageStatus';
+import { getCarsList, getCarsStateStatus } from '../../store/car/selectors';
+import { getGarageCurrentPage } from '../../store/pages/selectors';
 
-function Track() {
+export function Track() {
   const dispatch = useAppDispatch();
 
   const carsStatus = useSelector(getCarsStateStatus);
   const carsList = useSelector(getCarsList);
 
-  const currentPage = useSelector(getCurrentPage);
+  const currentPage = useSelector(getGarageCurrentPage);
 
   const carsPerPage = 7;
   const totalCars = carsList.length;
@@ -48,4 +46,3 @@ function Track() {
     </>
   );
 }
-export default Track;

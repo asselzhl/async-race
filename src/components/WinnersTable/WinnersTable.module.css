@@ -1,0 +1,10 @@
+.table {
+  width: 100%;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+td {
+  width: 20%;
+  padding: 1rem 0;
+}

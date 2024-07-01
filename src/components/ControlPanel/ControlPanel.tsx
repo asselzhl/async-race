@@ -1,12 +1,13 @@
 import { Button } from '@mui/material';
-import CarForm from '../CarForm/CarForm';
+import { CarForm } from '../CarForm/CarForm';
 
 import styles from './ControlPanel.module.css';
-import generateRandomCar from '../../helpers/generateRandomCar';
+import { generateRandomCar } from '../../helpers/generateRandomCar';
 import { useAppDispatch } from '../../store/store';
 import { createCar } from '../../store/car/carThunk';
+import { RaceControls } from './components/RaceControls';
 
-function ControlPanel() {
+export function ControlPanel() {
   const dispatch = useAppDispatch();
 
   const handleGenerateButtonClick = () => {
@@ -19,14 +20,7 @@ function ControlPanel() {
 
   return (
     <div className={styles.wrapper}>
-      <div className={styles['race-controls']}>
-        <Button variant="outlined" size="small">
-          Race
-        </Button>
-        <Button variant="outlined" size="small">
-          Reset
-        </Button>
-      </div>
+      <RaceControls />
 
       <CarForm type="create" />
       <CarForm type="update" />
@@ -41,5 +35,3 @@ function ControlPanel() {
     </div>
   );
 }
-
-export default ControlPanel;
